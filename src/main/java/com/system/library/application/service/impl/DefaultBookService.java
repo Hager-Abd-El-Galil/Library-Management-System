@@ -107,6 +107,7 @@ public class DefaultBookService implements BookService {
 		if (book == null) {
 			throw new BusinessLogicViolationException(ApiErrorMessageEnum.BCV_BOOK_NOT_FOUND.name());
 		}
+		validateBookNotBorrowed(id);
 		borrowingRecordRepository.deleteAllByBookId(id);
 		bookRepository.deleteById(id);
 
@@ -154,6 +155,12 @@ public class DefaultBookService implements BookService {
 			}
 		}
 
+	}
+
+	private void validateBookNotBorrowed(int id) {
+		if (borrowingRecordRepository.findByBookIdAndReturnDateIsNull(id) != null) {
+			throw new BusinessLogicViolationException(ApiErrorMessageEnum.BCV_BOOK_IS_ALREADY_BORROWED.name());
+		}
 	}
 
 }

@@ -109,6 +109,8 @@ public class DefaultPatronService implements PatronService {
 		if (patron == null) {
 			throw new BusinessLogicViolationException(ApiErrorMessageEnum.BCV_PATRON_NOT_FOUND.name());
 		}
+
+		validatePatronNotBorrowingBook(id);
 		borrowingRecordRepository.deleteAllByPatronId(id);
 		patronRepository.deleteById(id);
 
@@ -157,6 +159,12 @@ public class DefaultPatronService implements PatronService {
 			}
 		}
 
+	}
+
+	private void validatePatronNotBorrowingBook(int id) {
+		if (borrowingRecordRepository.findByPatronIdAndReturnDateIsNull(id) != null) {
+			throw new BusinessLogicViolationException(ApiErrorMessageEnum.BCV_PATRON_IS_BORROWING_BOOK.name());
+		}
 	}
 
 }
