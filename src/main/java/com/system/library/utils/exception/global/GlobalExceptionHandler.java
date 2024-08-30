@@ -10,6 +10,9 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -31,9 +34,6 @@ import com.system.library.utils.exception.enums.ApiErrorMessageEnum;
 import com.system.library.utils.exception.enums.ApiExceptionEnum;
 import com.system.library.utils.exception.impl.BusinessLogicViolationException;
 import com.system.library.utils.exception.model.ExceptionHandlerResModel;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -232,10 +232,10 @@ public class GlobalExceptionHandler {
 		String exceptionType = null;
 
 		if (exceptionCode == 1062) {// Unique Key
-			message = getConstraintKeyFromExceptionMessage("U_", exceptionMessage);
+			message = exceptionMessage.toUpperCase();
 			exceptionType = ApiExceptionEnum.UNIQUE_KEY_CONSTRAINT_VIOLATION.name();
 		} else if (exceptionCode == 1048) {// Not Null
-			message = exceptionMessage;
+			message = exceptionMessage.toUpperCase();
 			exceptionType = ApiExceptionEnum.INTERNAL_SERVER_ERROR.name();
 		} else if (exceptionCode == 1452) {// Create And FK Not Found
 			message = getConstraintKeyFromExceptionMessage("FK_", exceptionMessage);
@@ -244,7 +244,7 @@ public class GlobalExceptionHandler {
 			message = getConstraintKeyFromExceptionMessage("FK_", exceptionMessage);
 			exceptionType = ApiExceptionEnum.FOREIGN_KEY_CONSTRAINT_VIOLATION.name();
 		} else if (exceptionCode == 1406) {// Data too long for column
-			message = exceptionMessage;
+			message = exceptionMessage.toUpperCase();
 			exceptionType = ApiExceptionEnum.FOREIGN_KEY_CONSTRAINT_VIOLATION.name();
 		}
 
