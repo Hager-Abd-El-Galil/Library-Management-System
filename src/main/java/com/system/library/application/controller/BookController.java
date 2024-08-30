@@ -69,7 +69,7 @@ public class BookController {
 		return new ResponseEntity<>(bookService.getBookById(bookId), HttpStatus.OK);
 	}
 
-	@Operation(summary = "Add a New Book to the Lirary")
+	@Operation(summary = "Add a New Book to the Library")
 	@PostMapping
 	private ResponseEntity<BookResModel> createBook(
 			@Parameter(name = "Book Request Model") @Valid @RequestBody BookReqModel bookReqModel) {
@@ -83,7 +83,7 @@ public class BookController {
 		return new ResponseEntity<>(bookService.updateBookById(bookId, bookReqModel), HttpStatus.OK);
 	}
 
-	@Operation(summary = "Remove Book from the Lirary")
+	@Operation(summary = "Remove Book from the Library")
 	@DeleteMapping("/{id}")
 	private ResponseEntity<Void> deleteBookById(@Parameter(name = "Book ID") @PathVariable("id") int bookId) {
 		return new ResponseEntity<>(bookService.deleteBookById(bookId), HttpStatus.OK);
