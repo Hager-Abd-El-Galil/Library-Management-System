@@ -6,6 +6,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +39,7 @@ public class DefaultBookService implements BookService {
 	BookMapper bookMapper;
 
 	@Override
+	@Cacheable(value = "getAllBooks")
 	public List<BookResModel> getAllBooks() {
 		return bookMapper.mapToBookResModel(bookRepository.findAll());
 	}
@@ -63,6 +67,8 @@ public class DefaultBookService implements BookService {
 	}
 
 	@Override
+	@CacheEvict(value = "getAllBooks", allEntries = true)
+	@CachePut(value = "getBookById", key = "#result.id")
 	public BookResModel createBook(BookReqModel bookReqModel) {
 
 		validateBookReqModel(bookReqModel, 0);
@@ -74,6 +80,7 @@ public class DefaultBookService implements BookService {
 	}
 
 	@Override
+	@Cacheable(value = "getBookById", key = "#id")
 	public BookResModel getBookById(int id) {
 		Book book = bookRepository.findById(id).orElse(null);
 
@@ -85,6 +92,8 @@ public class DefaultBookService implements BookService {
 	}
 
 	@Override
+	@CacheEvict(value = "getAllBooks", allEntries = true)
+	@CachePut(value = "getBookById", key = "#result.id")
 	public BookResModel updateBookById(int id, BookReqModel bookReqModel) {
 		Book book = bookRepository.findById(id).orElse(null);
 
@@ -101,6 +110,7 @@ public class DefaultBookService implements BookService {
 
 	@Override
 	@Transactional
+	@CacheEvict(value = { "getAllBooks", "getBookById" }, allEntries = true)
 	public Void deleteBookById(int id) {
 		Book book = bookRepository.findById(id).orElse(null);
 
