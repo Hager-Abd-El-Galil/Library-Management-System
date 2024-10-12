@@ -53,13 +53,13 @@ The system includes the following endpoints:
 - `POST /api/borrow/{bookId}/patron/{patronId}`: Allow a patron to borrow a book.
 - `PUT /api/return/{bookId}/patron/{patronId}`: Record the return of a borrowed book by a patron.
 
-## AOP (Aspect-Oriented Programming)
-- The application uses AOP to implement cross-cutting concerns such as logging and performance monitoring.
-- An aspect called `TimeLoggingAspect` measures the execution time of methods, providing insights into the application's performance.
-
 ## Auditing
 - The application employs auditing to automatically capture creation and modification details of entities.
 - The `BaseEntity` class contains fields for `createDate`, `changeDate`, `creator`, and `changer`, which are populated using Spring Data JPA's auditing features.
+
+## AOP (Aspect-Oriented Programming)
+- The application uses AOP to implement cross-cutting concerns such as logging and performance monitoring.
+- An aspect called `TimeLoggingAspect` measures the execution time of methods, providing insights into the application's performance and `ExceptionLoggingAspect` logs exceptions thrown by methods, capturing relevant details such as the exception message and stack trace for easier debugging.
 
 ## Caching
 - Caching is implemented to improve performance, particularly for frequently accessed data like books.
