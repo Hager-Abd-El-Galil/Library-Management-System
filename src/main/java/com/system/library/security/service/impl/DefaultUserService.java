@@ -1,8 +1,6 @@
 package com.system.library.security.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,7 @@ public class DefaultUserService implements UserService {
 			throw new UsernameNotFoundException(username);
 		}
 
-		return new User(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole()));
+		return user;
 	}
 
 }

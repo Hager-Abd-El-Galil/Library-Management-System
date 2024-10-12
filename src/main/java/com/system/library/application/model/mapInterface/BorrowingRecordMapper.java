@@ -16,6 +16,10 @@ public interface BorrowingRecordMapper {
 	BorrowingRecordResModel mapToBorrowingRecordResModel(BorrowingRecord borrowingRecord);
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createDate", ignore = true)
+	@Mapping(target = "creator", ignore = true)
+	@Mapping(target = "changeDate", ignore = true)
+	@Mapping(target = "changer", ignore = true)
 	BorrowingRecord mapToBorrowingRecord(Book book, Patron patron, LocalDate borrowingDate);
 
 }
