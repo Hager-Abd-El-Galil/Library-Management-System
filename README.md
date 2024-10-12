@@ -5,13 +5,16 @@
 This project is a **Library Management System API** built using **Spring Boot**. It allows librarians to manage books, patrons, and borrowing records efficiently. The system provides RESTful API endpoints for various operations related to library management.
 
 ## Features
-- **Database**: The system uses **MySQL** to persist data related to books, patrons, and borrowing records.
-- **Entity Relationships**: Proper relationships are set up between entities.
+- **Database and Entity Relationships**: The system utilizes `MySQL` for data persistence, establishing proper relationships between entities such as books, patrons, and borrowing records to maintain data integrity and support complex queries.
 - **Security**: Basic authentication with JWT-based is implemented to protect API endpoints.
 - **Transaction Management**: Declarative transaction management using Spring's `@Transactional` annotation ensures data integrity during critical operations.
 - **Input Validation**: The system ensures the correctness of API requests by implementing robust input validation.
 - **Exception Handling**: The system is designed to handle exceptions gracefully.
 - **Unit Testing**: Unit tests are provided to validate the functionality of the API endpoints.
+- **Auditing**: Automatic tracking of entity creation and modification details, including timestamps and user information.
+- **Aspect-Oriented Programming (AOP)**: Logging of method execution times and exception logging using AOP is implemented to monitor system performance.
+- **Caching**: Improved performance through caching of frequently accessed data, such as books.
+
 
 ## Technologies
 - **Spring Boot**: Backend framework for building the RESTful API.
@@ -49,6 +52,18 @@ The system includes the following endpoints:
 ### Borrowing Record Management
 - `POST /api/borrow/{bookId}/patron/{patronId}`: Allow a patron to borrow a book.
 - `PUT /api/return/{bookId}/patron/{patronId}`: Record the return of a borrowed book by a patron.
+
+## AOP (Aspect-Oriented Programming)
+- The application uses AOP to implement cross-cutting concerns such as logging and performance monitoring.
+- An aspect called `TimeLoggingAspect` measures the execution time of methods, providing insights into the application's performance.
+
+## Auditing
+- The application employs auditing to automatically capture creation and modification details of entities.
+- The `BaseEntity` class contains fields for `createDate`, `changeDate`, `creator`, and `changer`, which are populated using Spring Data JPA's auditing features.
+
+## Caching
+- Caching is implemented to improve performance, particularly for frequently accessed data like books.
+- The `@Cacheable` annotation is used for retrieving books, while `@CacheEvict` is applied for creating, updating, or deleting books to ensure data consistency.
 
 ## Getting Started
 
