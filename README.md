@@ -11,8 +11,8 @@ This project is a **Library Management System API** built using **Spring Boot**.
 - **Input Validation**: The system ensures the correctness of API requests by implementing robust input validation.
 - **Exception Handling**: The system is designed to handle exceptions gracefully.
 - **Unit Testing**: Unit tests are provided to validate the functionality of the API endpoints.
-- **Auditing**: Automatic tracking of entity creation and modification details, including timestamps and user information.
 - **Aspect-Oriented Programming (AOP)**: Logging of method execution times and exception logging using AOP is implemented to monitor system performance.
+- **Auditing**: Automatic tracking of entity creation and modification details, including timestamps and user information.
 - **Caching**: Improved performance through caching of frequently accessed data, such as books.
 
 
@@ -53,13 +53,13 @@ The system includes the following endpoints:
 - `POST /api/borrow/{bookId}/patron/{patronId}`: Allow a patron to borrow a book.
 - `PUT /api/return/{bookId}/patron/{patronId}`: Record the return of a borrowed book by a patron.
 
-## Auditing
-- The application employs auditing to automatically capture creation and modification details of entities.
-- The `BaseEntity` class contains fields for `createDate`, `changeDate`, `creator`, and `changer`, which are populated using Spring Data JPA's auditing features.
-
 ## AOP (Aspect-Oriented Programming)
 - The application uses AOP to implement cross-cutting concerns such as logging and performance monitoring.
 - An aspect called `TimeLoggingAspect` measures the execution time of methods, providing insights into the application's performance and `ExceptionLoggingAspect` logs exceptions thrown by methods, capturing relevant details such as the exception message and stack trace for easier debugging.
+
+## Auditing
+- The application employs auditing to automatically capture creation and modification details of entities.
+- The `BaseEntity` class contains fields for `createDate`, `changeDate`, `creator`, and `changer`, which are populated using Spring Data JPA's auditing features.
 
 ## Caching
 - Caching is implemented to improve performance, particularly for frequently accessed data like books.
