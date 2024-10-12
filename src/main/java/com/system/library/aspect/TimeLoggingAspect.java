@@ -31,7 +31,7 @@ public class TimeLoggingAspect {
 				.append(StringUtils.join(joinPoint.getArgs(), ", ")).append("\n Execution Time : ")
 				.append(executionTime).append("\n ============================== ");
 
-		logger.error(logMessage.toString());
+		logger.info(logMessage.toString());
 
 		return result;
 
