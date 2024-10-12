@@ -27,6 +27,6 @@ public class ExceptionLoggingAspect {
 				.append(exception.getClass().getSimpleName()).append("\n Message : ").append(exception.getMessage())
 				.append("\n =========================");
 
-		logger.error(logMessage.toString());
+		logger.info(logMessage.toString());
 	}
 }
